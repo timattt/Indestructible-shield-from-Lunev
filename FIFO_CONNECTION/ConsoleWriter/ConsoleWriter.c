@@ -10,7 +10,7 @@ void wMAKE_STEPS() {
 	wMAKE_CONNECTION();
 	wFCNTL_WRITER_FIFO();
 	wREAD_FROM_WRITER_FIFO();
-	CLOSE_ALL();
+	wCLOSE_ALL();
 }
 
 void wMKFIFO_TRANSFER() {
@@ -92,7 +92,7 @@ void wREAD_FROM_WRITER_FIFO() {
 	}
 }
 
-void CLOSE_ALL() {
+void wCLOSE_ALL() {
 	close(TRANSFER_FIFO_FD);
 	close(WRITER_FIFO_FD);
 }
