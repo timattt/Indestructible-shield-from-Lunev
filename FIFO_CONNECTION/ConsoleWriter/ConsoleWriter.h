@@ -1,0 +1,25 @@
+#ifndef CONSOLE_WRITER
+#define CONSOLE_WRITER
+
+#include "../Base/Base.h"
+
+// CONSTANTS
+#define TOTAL_TRY 3
+#define TRY_DELAY 5
+
+// STEPS
+void wMAKE_STEPS();
+void wMKFIFO_TRANSFER();
+void wOPEN_TRANSFER();
+void wGENERATE_WRITER_FIFO_NAME();
+void wMKFIFO_WRITER();
+void wOPEN_WRITER_FIFO();
+void wWRITE_WRITER_KEY_TO_TRANSFER();
+void wMAKE_CONNECTION();
+void wFCNTL_WRITER_FIFO();
+void wREAD_FROM_WRITER_FIFO();
+void CLOSE_ALL();
+
+void RUN_CONSOLE_WRITER();
+
+#endif
