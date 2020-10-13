@@ -22,5 +22,5 @@ N times loop: read from writer fifo, sleep(DELAY)
 fcntl writer fifo (O_RDONLY)       
 read the remaining    
 
-# Немного крассной символики
+# Немного красной символики
 ![](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/MASCOT_STAR.svg)
