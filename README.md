@@ -1,4 +1,4 @@
-# Indestructible shield from Lunev
+# ☭ Indestructible shield from Lunev ☭
 This repository contains programs that will serve as a shield against my expulsion from the flagship of Russian science
 
 # Первое задание (fifo)
@@ -23,7 +23,13 @@ fcntl writer fifo (O_RDONLY)
 read the remaining    
 
 # Второе задание (messages)
-Вроде работает...
+## Сжатый алгоритм:
+* Создаем очередь.
+* Пораждаем n дочерних процессов.
+* Родитель последовательно отправляет сыновьям по два сообщения с любым содержимым: первое - типа номера сына, второе - типа (n+1).
+* Каждый сын сначала ждет сообщение типа своего номера, а потом отправляет сообщение   типа (n + 1).
+* Закрываем очередь.
+
 
 # Немного красной символики
 ![](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/MASCOT_STAR.svg)

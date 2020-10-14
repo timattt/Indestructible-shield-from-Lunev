@@ -6,7 +6,7 @@ int main(int argc, char * argv[]) {
 		ERROR("Too few arguments");
 	}
 
-	n = (atoi(argv[1]));
+	n = STRING_TO_INT(argv[1]);
 
 	make_steps();
 

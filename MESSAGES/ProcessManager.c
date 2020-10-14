@@ -38,6 +38,7 @@ void child_steps() {
 	int trash = 12345;
 	receive_msg(QUEUE_ID, &trash, CHILD_ID);
 	printf("%d\n", CHILD_ID);
+	fflush(0);
 	send_msg(QUEUE_ID, trash, n + 1);
 }
 
