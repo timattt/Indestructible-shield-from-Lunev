@@ -22,5 +22,8 @@ N times loop: read from writer fifo, sleep(DELAY)
 fcntl writer fifo (O_RDONLY)       
 read the remaining    
 
+# Второе задание (messages)
+Вроде работает...
+
 # Немного красной символики
 ![](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/MASCOT_STAR.svg)

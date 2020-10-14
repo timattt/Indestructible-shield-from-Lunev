@@ -17,6 +17,7 @@ int WRITER_FIFO_FD;
 int TRANSFER_FIFO_FD;
 
 // INCLUDES
+#include "../../UTILS/Utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -24,10 +25,5 @@ int TRANSFER_FIFO_FD;
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-
-// UTILITIES
-void ERROR(const char * mes);
-void DEBUG(const char * mes);
-void MAKE_NAME(int key, char * dest);
 
 #endif
