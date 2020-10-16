@@ -1,6 +1,10 @@
 # ☭ Indestructible shield from Lunev ☭
 This repository contains programs that will serve as a shield against my expulsion from the flagship of Russian science
 
+# Дневник красного война
+* Сделал первые два задания, жду сдачи...
+* Лунев отменил семинар, + неделя покодить
+
 # Первое задание (fifo)
 ## Сжатый алгоритм системных вызовов:
 ### Reader from file:
