@@ -1,7 +1,7 @@
 # ☭ Indestructible shield from Lunev ☭
 This repository contains programs that will serve as a shield against my expulsion from the flagship of Russian science
 
-# Дневник красного война
+# Дневник красного воина
 * Сделал первые два задания, жду сдачи...
 * Лунев отменил семинар, + неделя покодить
 
