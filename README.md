@@ -1,5 +1,7 @@
 # ☭ Indestructible shield from Lunev ☭
-This repository contains programs that will serve as a shield against my expulsion from the flagship of Russian science
+This repository contains programs that will serve as a shield against my expulsion from the flagship of Russian science   
+
+![](https://www.dualshockers.com/wp-content/uploads/2016/05/Screenshot-2016-05-17-12.07.14.png)
 
 # Дневник красного воина
 * Сделал первые два задания, жду сдачи...
