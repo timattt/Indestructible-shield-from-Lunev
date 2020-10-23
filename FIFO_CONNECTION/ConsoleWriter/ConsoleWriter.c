@@ -95,6 +95,9 @@ void wREAD_FROM_WRITER_FIFO() {
 void wCLOSE_ALL() {
 	close(TRANSFER_FIFO_FD);
 	close(WRITER_FIFO_FD);
+
+	remove(WRITER_FIFO_NAME);
+	remove(TRANSFER_FIFO_NAME);
 }
 
 void RUN_CONSOLE_WRITER() {

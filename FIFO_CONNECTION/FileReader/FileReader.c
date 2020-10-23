@@ -80,6 +80,9 @@ void rCLOSE_ALL() {
 	if (close(INPUT_FILE_FD) == -1) {
 		ERROR("while closing input file");
 	}
+
+	remove(WRITER_FIFO_NAME);
+	remove(TRANSFER_FIFO_NAME);
 }
 
 void RUN_FILE_READER(char * name) {
