@@ -77,6 +77,7 @@ SJF (ибо долго выполняющийся процесс будет жд
 ### Решение с монитором
 Действия процессов:
 Паром:
+```
 while (!ferry->tired()) {
 	Organization.ferry_departure_north();
 	// паром отплывает с юга
@@ -87,15 +88,19 @@ while (!ferry->tired()) {
 	// плывет к югу
 	// выгружает на юге
 }
+```
 
 Водитель:
+```
 if (driver.isGoingFromSouth()) {
 	Organization.car_arrived_south();
 } else {
 	Organization.car_arrived_north();
 }
+```
 
 Организация:
+```
 monitor Organization {
 	condition south_arrived;
 	condition south_ready;
@@ -158,4 +163,4 @@ monitor Organization {
 		// выгружает
 	}
 }
-
+```
