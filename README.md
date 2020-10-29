@@ -19,6 +19,9 @@ This repository contains programs that will serve as a shield against my expulsi
 1) Есть ли в коде критические секции?   
 Есть - конфликт за stdout между детьми. (код: printf и fflush)
 
+# Контрольные
+[Полусеместровая](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/HalfSemesterKR/readme.md).      
+
 # Первое задание (fifo)
 ## Сжатый алгоритм системных вызовов:
 ### Reader from file:
