@@ -252,4 +252,4 @@ void ferry_departure_south() {// паром отплывает с юга
 ```
 
 # Полусеместровая контрольная не знаю, какого года
-![](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/HalfSemesterKR/Solutions_old/KR_STRANGE_YEAR.pdf)
+[Открой меня!](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/HalfSemesterKR/Solutions_old/KR_STRANGE_YEAR.pdf)
