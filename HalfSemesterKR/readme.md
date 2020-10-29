@@ -251,5 +251,9 @@ void ferry_departure_south() {// паром отплывает с юга
 
 ```
 
+## 4.
+[Теорминимум](https://youtu.be/1x71GUNcS2s)
+
+
 # Полусеместровая контрольная не знаю, какого года
 [Открой меня!](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/HalfSemesterKR/Solutions_old/KR_STRANGE_YEAR.pdf)
