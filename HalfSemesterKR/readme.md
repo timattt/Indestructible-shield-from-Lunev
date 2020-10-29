@@ -164,3 +164,85 @@ monitor Organization {
 	}
 }
 ```
+
+### Решение с симафорами
+Действия процессов:     
+Паром:
+```
+while (!ferry->tired()) {
+	ferry_departure_north();
+	// паром отплывает с юга
+	// плывет к северу
+	// выгружает на севере
+	ferry_departure_south();
+	// паром отплывает с севера
+	// плывет к югу
+	// выгружает на юге
+}
+```
+
+Водитель:
+```
+if (driver.isGoingFromSouth()) {
+	car_arrived_south();
+} else {
+	car_arrived_north();
+}
+```
+
+Организация:
+```
+shared int count_south = 0; // total cars south
+shared int count_north = 0; // total cars north
+
+semaphor car_north;
+semaphor ferry_north;
+
+semaphor car_south;
+semaphor ferry_south;
+	
+void car_arrived_south() {// хотим переплыть с юга
+	V(ferry_south);//up
+	P(car_south);//down
+	
+	// поднимаемся на паром
+	// плывем
+	// спускаемся
+}
+	
+void car_arrived_north() {// хотим переплыть с севера
+	V(ferry_north);//up
+	P(car_north);//down
+	
+	// поднимаемся на паром
+	// плывем
+	// спускаемся
+}
+	
+void ferry_departure_north() {// паром отплывает с севера
+	for (int i = 0; i < N; i++) {
+		P(ferry_north);//down
+	}
+	for (int i = 0; i < N; i++) {
+		V(car_north);
+	}
+	
+	// паром отплывает
+	// плывет
+	// выгружает
+}
+	
+void ferry_departure_south() {// паром отплывает с юга
+	for (int i = 0; i < N; i++) {
+		P(ferry_south);//down
+	}
+	for (int i = 0; i < N; i++) {
+		V(car_south);
+	}
+	
+	// паром отплывает
+	// плывет
+	// выгружает
+}
+
+```
