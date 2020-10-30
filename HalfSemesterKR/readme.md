@@ -81,6 +81,7 @@ SJF (ибо долго выполняющийся процесс будет жд
 * Разделяемая переменная - переменная, общая для всех процессов.
 * Монитор – это набор разделяемых переменных и условных переменных, в каждый момент времени только один процесс может выполянться внутри монитора (ожидание выполнением не считается).
 Условная переменная монитора - переменная, у которой есть две функции - wait и signal. Первая заставляет процесс ждать до тех пор, пока другой процесс не вызовет вторую.
+* Сообщения - можно посылать сообщения между процессами, send(A, mes) A - название очереди, mes - текст. receive(A) - получить из очереди сообщений. receive будет ждать сообщения.
 
 ### Решение с монитором
 Действия процессов:     
@@ -200,9 +201,6 @@ if (driver.isGoingFromSouth()) {
 
 Организация:
 ```
-shared int count_south = 0; // total cars south
-shared int count_north = 0; // total cars north
-
 semaphor car_north;
 semaphor ferry_north;
 
@@ -254,6 +252,86 @@ void ferry_departure_south() {// паром отплывает с юга
 }
 
 ```
+
+### Решение с сообщениями
+Действия процессов:     
+Паром:
+```
+while (!ferry->tired()) {
+	ferry_departure_north();
+	// паром отплывает с юга
+	// плывет к северу
+	// выгружает на севере
+	ferry_departure_south();
+	// паром отплывает с севера
+	// плывет к югу
+	// выгружает на юге
+}
+```
+
+Водитель:
+```
+if (driver.isGoingFromSouth()) {
+	car_arrived_south();
+} else {
+	car_arrived_north();
+}
+```
+
+Организация:
+```
+queue car_north;
+queue ferry_north;
+
+queue car_south;
+queue ferry_south;
+	
+void car_arrived_south() {// хотим переплыть с юга
+	send(ferry_south, "I arrived!");
+	receive(car_south);
+	
+	// поднимаемся на паром
+	// плывем
+	// спускаемся
+}
+	
+void car_arrived_north() {// хотим переплыть с севера
+	send(ferry_north, "I arrived!");
+	receive(car_north);
+	
+	// поднимаемся на паром
+	// плывем
+	// спускаемся
+}
+	
+void ferry_departure_north() {// паром отплывает с севера
+	for (int i = 0; i < N; i++) {
+		receive(ferry_north);
+	}
+	for (int i = 0; i < N; i++) {
+		send(car_north, "lets go");
+	}
+	
+	// паром отплывает
+	// плывет
+	// выгружает
+}
+	
+void ferry_departure_south() {// паром отплывает с юга
+	for (int i = 0; i < N; i++) {
+		receive(ferry_south);
+	}
+	for (int i = 0; i < N; i++) {
+		send(car_south, "lets go");
+	}
+	
+	// паром отплывает
+	// плывет
+	// выгружает
+}
+
+```
+
 
 ## 4.
 ### Теорминимум
