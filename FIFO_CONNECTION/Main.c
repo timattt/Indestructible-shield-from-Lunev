@@ -2,7 +2,7 @@
 #include "FileReader/FileReader.h"
 #include "ConsoleWriter/ConsoleWriter.h"
 
-int main(int argc, char * argv[]) {
+int Task1(int argc, char * argv[]) {
 	if (argc < 2) {
 		ERROR("Too few arguments!");
 	}

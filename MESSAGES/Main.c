@@ -1,7 +1,7 @@
 #include "../UTILS/Utils.h"
 #include "ProcessManager.h"
 
-int main(int argc, char * argv[]) {
+int Task2(int argc, char * argv[]) {
 	if (argc < 2) {
 		ERROR("Too few arguments");
 	}

@@ -70,34 +70,34 @@ This repository contains programs that will serve as a shield against my expulsi
 * shmget (IPC_CREAT | 0600)
 * shmat
 * semget (IPC_CREAT | 0600)
-* semop: (ошибка EAGAIN не критична)
+* semop 1: (ошибка EAGAIN не критична)
 * * [start, 0, IPC_NOWAIT]
 * * [start, 1, 0]
-* semop:
+* semop 2:
 * * [die, -2, IPC_NOWAIT]
 * * [die, 2, 0]
 * * [alive_w, -1, SEM_UNDO]
 * * [full, 1, SEM_UNDO]
 * * [full, -1, 0]
-* semop:
+* semop 3:
 * * [alive_r, 0, 0]
 * * [die, -1, SEM_UNDO]
-* semop:
+* semop 4:
 * * [die, 0, 0]
 * loop:
 * * read from file into buf
-* * semop:
+* * semop 5:
 * * * [die, 0, IPC_NOWAIT]
-* * semop:
+* * semop 6:
 * * * [die, 0, IPC_NOWAIT]
 * * * [full, 0, 0]
 * * * [mutex, -1, SEM_UNDO]
 * * copy from buf to shared mem
-* * semop:
+* * semop 7:
 * * * [full, 1, 0]
 * * * [mutex, 1, SEM_UNDO]
 * close file
-* semop:
+* semop 8:
 * * [full, 0, 0]
 * * [die, 0, IPC_NOWAIT]
 * shmdt
@@ -106,29 +106,29 @@ This repository contains programs that will serve as a shield against my expulsi
 * shmget (IPC_CREAT | 0600)
 * shmat
 * semget (IPC_CREAT | 0600)
-* semop:
+* semop 1:
 * * [start, 0, IPC_NOWAIT]
 * * [start, 1, 0]
-* semop:
+* semop 2:
 * * [die, -2, IPC_NOWAIT]
 * * [die, 2, 0]
 * * [alive_r, -1, SEM_UNDO]
-* semop:
+* semop 3:
 * * [alive_w, 0, 0]
 * * [die, -1, SEM_UNDO]
-* semop:
+* semop 4:
 * * [die, 0, 0]
 * loop:
-* * semop: (ошибка EAGAIN выводит из цикла)
+* * semop 5: (ошибка EAGAIN выводит из цикла)
 * * * [die, 0, IPC_NOWAIT]
-* * semop: (ошибка EAGAIN выводит из цикла)
+* * semop 6: (ошибка EAGAIN выводит из цикла)
 * * * [die, 0, IPC_NOWAIT]
 * * * [full, -1, 0]
 * * * [mutex, -1, SEM_UNDO]
 * * copy to buf from shared mem
-* * semop:
+* * semop 7:
 * * * [mutex, 1, SEM_UNDO]
-* * * write buf to console
+* * write buf to console
 * shmdt
 * shmctl (IPC_RMID)
 * semctl (IPC_RMID)
