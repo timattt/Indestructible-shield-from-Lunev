@@ -11,7 +11,6 @@
 #include <unistd.h>
 #include "../UTILS/Utils.h"
 
-
 // DATA
 int QUEUE_ID;
 int CHILD_ID;

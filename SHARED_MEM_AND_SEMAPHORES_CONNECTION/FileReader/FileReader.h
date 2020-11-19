@@ -43,7 +43,7 @@ if (semop(SEMS_ID, rPART ## N, rP ## N ## SZ) == -1 && errno != EAGAIN) {\
 }\
 }
 
-#define rP1SZ 2
+#define rP1SZ 6
 #define rP2SZ 5
 #define rP3SZ 2
 #define rP4SZ 1

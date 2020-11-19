@@ -44,7 +44,7 @@ if ((ret = semop(SEMS_ID, wPART ## N, wP ## N ## SZ)) == -1 && errno != EAGAIN) 
 }return ret;\
 }
 
-#define wP1SZ 2
+#define wP1SZ 6
 #define wP2SZ 3
 #define wP3SZ 2
 #define wP4SZ 1

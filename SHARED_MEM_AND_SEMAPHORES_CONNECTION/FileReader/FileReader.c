@@ -1,6 +1,6 @@
 #include "FileReader.h"
 
-struct sembuf rPART1[6] = {
+struct sembuf rPART1[rP1SZ] = {
 		{START, 0, IPC_NOWAIT},
 		{START, 1, 0},
 		{MUTEX, 1, 0},
@@ -38,7 +38,6 @@ struct sembuf rPART8[rP8SZ] = {
 		{FULL, 0, 0},
 		{DIE, 0, IPC_NOWAIT}
 };
-
 
 void rDO_STEPS() {
 	rOPEN_FILE();

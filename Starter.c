@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "FIFO_CONNECTION/Main.h"
 #include "MESSAGES/Main.h"
 #include "SHARED_MEM_AND_SEMAPHORES_CONNECTION/Main.h"

@@ -2,7 +2,11 @@
 
 struct sembuf wPART1[wP1SZ] = {
 		{START, 0, IPC_NOWAIT},
-		{START, 1, 0}
+		{START, 1, 0},
+		{MUTEX, 1, 0},
+		{ALIVE_R, 1, 0},
+		{ALIVE_W, 1, 0},
+		{DIE, 2, 0}
 };
 struct sembuf wPART2[wP2SZ] = {
 		{DIE, -2, IPC_NOWAIT},
