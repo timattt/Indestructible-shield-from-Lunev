@@ -96,7 +96,7 @@ int main() {
 * shmget (IPC_CREAT | 0666)
 * shmat
 * semget (IPC_CREAT | 0666)
-* semop 1: (ошибка EAGAIN не критична)
+* semop 1:
 * * [FR_CUR, 0, IPC_NOWAIT]
 * * [FR_PRE, 0, IPC_NOWAIT]
 * * [FR_CUR, +1, SEM_UNDO]
@@ -147,15 +147,3 @@ int main() {
 * shmctl (IPC_RMID)
 * semctl (IPC_RMID)
 
-
-
-
-
-
-
-
-
-
-
-# Немного красной символики
-![](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/MASCOT_STAR.svg)
