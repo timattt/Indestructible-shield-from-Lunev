@@ -22,10 +22,8 @@ void wSEMOP2();
 void wSEMOP3();
 void wSEMOP4();
 void wREAD_WRITE_LOOP();
-int wSEMOP5_NO_EAGAIN();
-int wSEMOP6_NO_EAGAIN();
+int wSEMOP5();
 int wWRITE_FROM_BUFFER_TO_CONSOLE();
-void wSEMOP7();
 void wSHMDT();
 void wSHMCTL();
 void wSEMCTL();
@@ -37,19 +35,9 @@ if (semop(SEMS_ID, wPART ## N, wP ## N ## SZ) == -1) {\
 }\
 }
 
-#define wSEMOP_NO_EAGAIN_FAST(N) int wSEMOP ## N ## _NO_EAGAIN() {\
-int ret = 0;\
-if ((ret = semop(SEMS_ID, wPART ## N, wP ## N ## SZ)) == -1 && errno != EAGAIN) {\
-	ERROR_CONCAT("semop part ", #N);\
-}return ret;\
-}
-
-#define wP1SZ 6
+#define wP1SZ 3
 #define wP2SZ 3
-#define wP3SZ 2
+#define wP3SZ 5
 #define wP4SZ 1
-#define wP5SZ 1
-#define wP6SZ 3
-#define wP7SZ 1
 
 #endif

@@ -14,7 +14,7 @@ void cGEN_KEY() {
 }
 
 void cSHMGET_TRANSFER() {
-	if ((SHARED_MEM_ID = shmget(KEY, SHMEM_SIZE, IPC_CREAT | 0600)) < 0) {
+	if ((SHARED_MEM_ID = shmget(KEY, SHMEM_SIZE, IPC_CREAT | 0666)) < 0) {
 		ERROR("while allocating shared memory");
 	}
 }
@@ -26,7 +26,7 @@ void cSHMAT_TRANSFER() {
 }
 
 void cSEMGET_SEMAPHORS() {
-	if ((SEMS_ID = semget(KEY, TOTAL_SEMS, IPC_CREAT | 0600)) < 0) {
+	if ((SEMS_ID = semget(KEY, TOTAL_SEMS, IPC_CREAT | 0666)) < 0) {
 		ERROR("while getting sempahores set");
 	}
 }

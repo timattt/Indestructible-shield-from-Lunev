@@ -19,16 +19,13 @@
 // STEPS
 void rDO_STEPS();
 void rOPEN_FILE();
-void rSEMOP1_NO_EAGAIN();
+void rSEMOP1();
 void rSEMOP2();
 void rSEMOP3();
-void rSEMOP4();
 void rREAD_FROM_FILE_AND_WRITE_TO_TRANSFER_LOOP();
+/**/void rSEMOP4();
 /**/void rSEMOP5();
-/**/void rSEMOP6();
-/**/void rSEMOP7();
 void rCLOSE_INPUT_FILE();
-void rSEMOP8();
 
 // SEMAPHORES OPERATION:
 #define rSEMOP_FAST(N) void rSEMOP ## N () {\
@@ -37,20 +34,11 @@ if (semop(SEMS_ID, rPART ## N, rP ## N ## SZ) == -1) {\
 }\
 }
 
-#define rSEMOP_NO_EAGAIN_FAST(N) void rSEMOP ## N ## _NO_EAGAIN() {\
-if (semop(SEMS_ID, rPART ## N, rP ## N ## SZ) == -1 && errno != EAGAIN) {\
-	ERROR_CONCAT("semop part ", #N);\
-}\
-}
-
-#define rP1SZ 6
-#define rP2SZ 5
+#define rP1SZ 3
+#define rP2SZ 3
 #define rP3SZ 2
-#define rP4SZ 1
-#define rP5SZ 1
-#define rP6SZ 3
-#define rP7SZ 2
-#define rP8SZ 2
+#define rP4SZ 5
+#define rP5SZ 2
 
 // DATA
 // INPUT FILE
