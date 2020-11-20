@@ -1,22 +1,22 @@
 #include "FileReader.h"
 
 struct sembuf rPART1[rP1SZ] = {
-		{PDC_CUR,  0, IPC_NOWAIT},
-		{PDC_PRE,  0, IPC_NOWAIT},
-		{PDC_CUR, +1, SEM_UNDO}
+		{FR_CUR,  0, IPC_NOWAIT},
+		{FR_PRE,  0, IPC_NOWAIT},
+		{FR_CUR, +1, SEM_UNDO}
 };
 struct sembuf rPART2[rP2SZ] = {
-		{CSM_CUR, -1, 0},
-		{CSM_CUR, +1, 0},
-		{CSM_PRE, +1, SEM_UNDO}
+		{CW_CUR, -1, 0},
+		{CW_CUR, +1, 0},
+		{CW_PRE, +1, SEM_UNDO}
 };
 struct sembuf rPART3[rP3SZ] = {
 		{FULL, +1, SEM_UNDO},
 		{FULL, -1, 0}
 };
 struct sembuf rPART4[rP4SZ] = {
-		{CSM_CUR, -1, IPC_NOWAIT},
-		{CSM_CUR, +1, 0},
+		{CW_CUR, -1, IPC_NOWAIT},
+		{CW_CUR, +1, 0},
 		{FULL,  0, 0},
 		{MUTEX,  0, 0},
 		{MUTEX, +1, SEM_UNDO}
@@ -30,7 +30,7 @@ void rDO_STEPS() {
 	rOPEN_FILE();
 	cGEN_KEY();
 	cSHMGET_TRANSFER();
-	cSHMAT_TRANSFER(); // шмат сала :)
+	cSHMAT_TRANSFER();
 	cSEMGET_SEMAPHORS();
 	rSEMOP1();
 	rSEMOP2();

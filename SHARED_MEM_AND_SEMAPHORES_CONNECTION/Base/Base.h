@@ -24,14 +24,13 @@ int SHARED_MEM_ID;
 char * SHMEM;
 
 // SEMAPHORES
-#define TOTAL_SEMS 8
-#define CSM_CUR 0
-#define CSM_PRE 1
-#define PDC_CUR 2
-#define PDC_PRE 3
+#define TOTAL_SEMS 7
+#define CW_CUR 0
+#define CW_PRE 1
+#define FR_CUR 2
+#define FR_PRE 3
 #define MUTEX 4
 #define FULL 5
 #define CTL 6
-#define SEM_NUM 7
 int SEMS_ID;
 

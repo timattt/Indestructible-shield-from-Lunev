@@ -1,14 +1,5 @@
-# ☭ Indestructible shield from Lunev ☭
+# Indestructible shield from Lunev
 This repository contains programs that will serve as a shield against my expulsion from the flagship of Russian science   
-
-![](https://www.dualshockers.com/wp-content/uploads/2016/05/Screenshot-2016-05-17-12.07.14.png)
-
-# Дневник красного воина ☭
-* Сделал первые два задания, жду сдачи...
-* Лунев отменил семинар, + неделя покодить
-* Код первых двух задач прошел ☭.
-* К обеим прогам получил первый вопрос.
-* Ответ на первый вопрос ко второй проге правильный. Ответ на первый вопрос ко второй проге неполный. 
 
 # Вопросы к задачам
 ## I
@@ -47,6 +38,10 @@ int main() {
 ## II
 1) Есть ли в коде критические секции?   
 Есть - конфликт за stdout между детьми. (код: printf и fflush)
+
+## III
+1) Есть ли в коде критические секции?   
+Есть - 
 
 # Контрольные
 [Полусеместровая](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/HalfSemesterKR/readme.md)      
@@ -87,77 +82,67 @@ int main() {
 # Третье задание (shared mem)
 ## Сжатый алгоритм системных вызовов:
 ### Семафоры:
-* start
-* mutex
-* full
-* alive_r
-* alive_w
-* die
+* CW_CUR
+* CW_PRE
+* FR_CUR
+* FR_PRE
+* MUTEX
+* FULL
+* CTL
+* SEM_NUM
 
 ### Reader from file:
 * open file (O_RDONLY)
-* shmget (IPC_CREAT | 0600)
+* shmget (IPC_CREAT | 0666)
 * shmat
-* semget (IPC_CREAT | 0600)
+* semget (IPC_CREAT | 0666)
 * semop 1: (ошибка EAGAIN не критична)
-* * [start, 0, IPC_NOWAIT]
-* * [start, 1, 0]
+* * [FR_CUR, 0, IPC_NOWAIT]
+* * [FR_PRE, 0, IPC_NOWAIT]
+* * [FR_CUR, +1, SEM_UNDO]
 * semop 2:
-* * [die, -2, IPC_NOWAIT]
-* * [die, 2, 0]
-* * [alive_w, -1, SEM_UNDO]
-* * [full, 1, SEM_UNDO]
-* * [full, -1, 0]
+* * [CW_CUR, -1, 0)]
+* * [CW_CUR, +1, 0]
+* * [CW_PRE, +1, SEM_UNDO]
 * semop 3:
-* * [alive_r, 0, 0]
-* * [die, -1, SEM_UNDO]
-* semop 4:
-* * [die, 0, 0]
+* * [FULL   , +1, SEM_UNDO]
+* * [FULL   , -1, 0]
 * loop:
-* * read from file into buf
+* * semop 4:
+* * * [CW_CUR, -1, IPC_NOWAIT]
+* * * [CW_CUR, +1, 0]
+* * * [FULL, 0, 0]
+* * * [MUTEX, 0, 0]
+* * * [MUTEX, +1, SEM_UNDO]
+* * copy from file to shared mem
 * * semop 5:
-* * * [die, 0, IPC_NOWAIT]
-* * semop 6:
-* * * [die, 0, IPC_NOWAIT]
-* * * [full, 0, 0]
-* * * [mutex, -1, SEM_UNDO]
-* * copy from buf to shared mem
-* * semop 7:
-* * * [full, 1, 0]
-* * * [mutex, 1, SEM_UNDO]
+* * * [MUTEX , -1, SEM_UNDO]
+* * * [FULL  , +1, 0]
 * close file
-* semop 8:
-* * [full, 0, 0]
-* * [die, 0, IPC_NOWAIT]
 * shmdt
 
 ### Writer to console:
-* shmget (IPC_CREAT | 0600)
+* shmget (IPC_CREAT | 0666)
 * shmat
-* semget (IPC_CREAT | 0600)
+* semget (IPC_CREAT | 0666)
 * semop 1:
-* * [start, 0, IPC_NOWAIT]
-* * [start, 1, 0]
+* * [CW_CUR,  0, IPC_NOWAIT]
+* * [CW_PRE,  0, IPC_NOWAIT]
+* * [CW_CUR, +1, SEM_UNDO]
 * semop 2:
-* * [die, -2, IPC_NOWAIT]
-* * [die, 2, 0]
-* * [alive_r, -1, SEM_UNDO]
-* semop 3:
-* * [alive_w, 0, 0]
-* * [die, -1, SEM_UNDO]
-* semop 4:
-* * [die, 0, 0]
+* * [FR_CUR, -1, 0]
+* * [FR_CUR, +1, 0]
+* * [FR_PRE, +1, SEM_UNDO]
 * loop:
-* * semop 5: (ошибка EAGAIN выводит из цикла)
-* * * [die, 0, IPC_NOWAIT]
-* * semop 6: (ошибка EAGAIN выводит из цикла)
-* * * [die, 0, IPC_NOWAIT]
-* * * [full, -1, 0]
-* * * [mutex, -1, SEM_UNDO]
-* * copy to buf from shared mem
-* * semop 7:
-* * * [mutex, 1, SEM_UNDO]
-* * write buf to console
+* * semop 3:
+* * * [FR_CUR, -1, IPC_NOWAIT]
+* * * [FR_CUR, +1, 0]
+* * * [MUTEX, 0, 0]
+* * * [MUTEX, +1, SEM_UNDO]
+* * * [FULL, -1, 0]
+* * copy to stdout from shared mem
+* * semop 4:
+* * * [MUTEX, -1, SEM_UNDO]
 * shmdt
 * shmctl (IPC_RMID)
 * semctl (IPC_RMID)

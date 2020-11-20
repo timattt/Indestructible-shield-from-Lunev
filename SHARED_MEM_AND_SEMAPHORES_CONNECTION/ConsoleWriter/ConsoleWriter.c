@@ -1,19 +1,19 @@
 #include "ConsoleWriter.h"
 
 struct sembuf wPART1[wP1SZ] = {
-		{CSM_CUR,  0, IPC_NOWAIT},
-		{CSM_PRE,  0, IPC_NOWAIT},
-		{CSM_CUR, +1, SEM_UNDO}
+		{CW_CUR,  0, IPC_NOWAIT},
+		{CW_PRE,  0, IPC_NOWAIT},
+		{CW_CUR, +1, SEM_UNDO}
 };
 struct sembuf wPART2[wP2SZ] = {
-		{PDC_CUR, -1, 0},
-		{PDC_CUR, +1, 0},
-		{PDC_PRE, +1, SEM_UNDO}
+		{FR_CUR, -1, 0},
+		{FR_CUR, +1, 0},
+		{FR_PRE, +1, SEM_UNDO}
 
 };
 struct sembuf wPART3[wP3SZ] = {
-		{PDC_CUR, -1, IPC_NOWAIT},
-		{PDC_CUR, +1, 0},
+		{FR_CUR, -1, IPC_NOWAIT},
+		{FR_CUR, +1, 0},
 		{MUTEX  ,  0, 0},
 		{MUTEX  , +1, SEM_UNDO},
 		{FULL	, -1, 0}
