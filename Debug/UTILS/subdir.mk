@@ -4,17 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../SHARED_MEM_AND_SEMAPHORES_CONNECTION/Base/Base.c 
+../UTILS/Utils.c 
 
 OBJS += \
-./SHARED_MEM_AND_SEMAPHORES_CONNECTION/Base/Base.o 
+./UTILS/Utils.o 
 
 C_DEPS += \
-./SHARED_MEM_AND_SEMAPHORES_CONNECTION/Base/Base.d 
+./UTILS/Utils.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-SHARED_MEM_AND_SEMAPHORES_CONNECTION/Base/%.o: ../SHARED_MEM_AND_SEMAPHORES_CONNECTION/Base/%.c
+UTILS/%.o: ../UTILS/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
 	gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
