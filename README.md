@@ -24,7 +24,7 @@ int SAME_FD_SAME_FILES(int fd1, int fd2) {
 ```
 int main() {
     char buf[3] = { 0 };
-    mkfifo("fifo", 666);
+    mkfifo("fifo", 0666);
     int fd = open("fifo", O_RDWR);
     write(fd, "aaa", 3);
     fd = open("fifo", O_RDONLY | O_NONBLOCK);
