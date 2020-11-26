@@ -62,6 +62,7 @@ void fifo_fileReader(char * INPUT_FILE_NAME) {
 		ERROR("while opening writer fifo");
 	}
 
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//---------------
 
 	if (fcntl(WRITER_FIFO_FD, F_SETFL, O_WRONLY) == -1) {
