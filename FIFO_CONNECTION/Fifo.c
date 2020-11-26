@@ -37,12 +37,16 @@ void fifo_fileReader(char * INPUT_FILE_NAME) {
 	}
 
 	//---------------
+	// Critical section
+	// Readers conflict with each other for pid-key (memory).
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	int WRITER_KEY = 0;
 	if (read(TRANSFER_FIFO_FD, &WRITER_KEY, sizeof(int)) == -1) {
 		ERROR("while reading key from transfer fifo");
 	}
 
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//---------------
 
 	char WRITER_FIFO_NAME[NAME_LENGTH] = { 0 };
@@ -131,12 +135,19 @@ void fifo_consoleWriter() {
 	}
 
 	//---------------
+	// Critical section
+	// Writers conflict with each other for memory inside fifo.
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	if (write(TRANSFER_FIFO_FD, &WRITER_KEY, sizeof(int)) == -1) {
 		ERROR("while writing transfer fifo");
 	}
 
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//---------------
+	// Critical section
+	// Conflict between reader and writer for memory inside writer-fifo
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	int count = 0;
 	char buf[BUFFER_SIZE];
@@ -176,6 +187,7 @@ void fifo_consoleWriter() {
 		write(STDOUT_FILENO, buf, count);
 	}
 
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//---------------
 
 	close(TRANSFER_FIFO_FD);
