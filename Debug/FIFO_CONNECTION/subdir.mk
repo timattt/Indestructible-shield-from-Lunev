@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../FIFO_CONNECTION/Main.c 
+../FIFO_CONNECTION/Fifo.c 
 
 OBJS += \
-./FIFO_CONNECTION/Main.o 
+./FIFO_CONNECTION/Fifo.o 
 
 C_DEPS += \
-./FIFO_CONNECTION/Main.d 
+./FIFO_CONNECTION/Fifo.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

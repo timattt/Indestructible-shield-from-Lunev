@@ -13,9 +13,6 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-FIFO_CONNECTION/Base \
-FIFO_CONNECTION/ConsoleWriter \
-FIFO_CONNECTION/FileReader \
 FIFO_CONNECTION \
 MESSAGES \
 SHARED_MEM_AND_SEMAPHORES_CONNECTION \

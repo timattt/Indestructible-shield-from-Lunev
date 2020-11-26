@@ -46,7 +46,7 @@ void common(int * semid, int * shmid, char ** shmem) {
 	//==============================
 }
 
-void fileReader(char * fileName, int semid, char * shmem) {
+void shmem_fileReader(char * fileName, int semid, char * shmem) {
 	// open file
 	//==============================
 	int fd = open(fileName, O_RDONLY);
@@ -121,7 +121,7 @@ void fileReader(char * fileName, int semid, char * shmem) {
 
 }
 
-void consoleWriter(int semid, char * shmem) {
+void shmem_consoleWriter(int semid, char * shmem) {
 	PREPARE_SEMS_BUF;
 
 	// Critical section IV
@@ -201,10 +201,10 @@ int Task3(int argc, char * argv[]) {
 		if (argc < 3) {
 			ERROR("too fex arguments");
 		}
-		fileReader(argv[2], semid, shmem);
+		shmem_fileReader(argv[2], semid, shmem);
 	}
 	if (argv[1][0] == 'w') {
-		consoleWriter(semid, shmem);
+		shmem_consoleWriter(semid, shmem);
 	}
 
 	return 0;

@@ -11,9 +11,6 @@ RM := rm -rf
 -include UTILS/subdir.mk
 -include SHARED_MEM_AND_SEMAPHORES_CONNECTION/subdir.mk
 -include MESSAGES/subdir.mk
--include FIFO_CONNECTION/FileReader/subdir.mk
--include FIFO_CONNECTION/ConsoleWriter/subdir.mk
--include FIFO_CONNECTION/Base/subdir.mk
 -include FIFO_CONNECTION/subdir.mk
 -include subdir.mk
 -include objects.mk

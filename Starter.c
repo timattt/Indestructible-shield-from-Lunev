@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-#include "FIFO_CONNECTION/Main.h"
+#include "FIFO_CONNECTION/Fifo.h"
 #include "MESSAGES/Main.h"
 #include "SHARED_MEM_AND_SEMAPHORES_CONNECTION/Shmem.h"
 #include "UTILS/Utils.h"
 
-#define DEFAULT_PROG 3
+#define DEFAULT_PROG 1
 
 int main(int argc, char *argv[]) {
 	int progn = DEFAULT_PROG;

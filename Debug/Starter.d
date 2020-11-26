@@ -1,9 +1,12 @@
-Starter.o: ../Starter.c ../FIFO_CONNECTION/Main.h ../MESSAGES/Main.h \
+Starter.o: ../Starter.c ../FIFO_CONNECTION/Fifo.h \
+ ../FIFO_CONNECTION/../UTILS/Utils.h ../MESSAGES/Main.h \
  ../SHARED_MEM_AND_SEMAPHORES_CONNECTION/Shmem.h \
  ../SHARED_MEM_AND_SEMAPHORES_CONNECTION/../UTILS/Utils.h \
  ../UTILS/Utils.h
 
-../FIFO_CONNECTION/Main.h:
+../FIFO_CONNECTION/Fifo.h:
+
+../FIFO_CONNECTION/../UTILS/Utils.h:
 
 ../MESSAGES/Main.h:
 
