@@ -35,7 +35,7 @@ int main() {
 Программу можно переписать в виде более удобном для отладки.
 ```
 	char buf[3] = { 0 };
-	if (mkfifo("fifo", 666) < 0) {
+	if (mkfifo("fifo", 0666) < 0) {
 		ERROR("mkfifo");
 	}
 
@@ -46,6 +46,12 @@ int main() {
 
 	if (write(fd, "aaa", 3) < 0) {
 		ERROR("write 1");
+	}
+
+	char cl = 0;
+
+	if (cl && (close(fd) < 0)) {
+		ERROR("close");
 	}
 
 	if ((fd = open("fifo", O_RDONLY | O_NONBLOCK)) < 0) {
@@ -60,16 +66,13 @@ int main() {
 	if (write(1, buf, count) < 0) {
 		ERROR("write 2");
 	}
-```
-Теперь имеем ошибку
-```
-Error with code 13, open 1
-Printing message:
-Permission denied
-```
-Из чего следует, что у нас просто нет доступа для манипуляции с этим fifo.   
 
-Поэтому программа ничего не выведет.
+    // опционально
+	remove("fifo");
+
+```
+
+Теперь при закрытии первого файлового дискриптора ничего не будет выведено, а если не закрывать, то будет выведено "aaa".
 
 
 ## II
