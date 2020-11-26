@@ -48,6 +48,9 @@ void fifo_fileReader(char * INPUT_FILE_NAME) {
 
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//---------------
+	// Critical section 2
+	// Conflict between reader and writer for whether the reader has time to open it or not
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	char WRITER_FIFO_NAME[NAME_LENGTH] = { 0 };
 	MAKE_NAME(WRITER_KEY, WRITER_FIFO_NAME);
@@ -82,6 +85,7 @@ void fifo_fileReader(char * INPUT_FILE_NAME) {
 		}
 	}
 
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//---------------
 
 	if (close(TRANSFER_FIFO_FD) == -1) {
@@ -142,7 +146,7 @@ void fifo_consoleWriter() {
 
 	//---------------
 	// Critical section 3
-	// Conflict between reader and writer for memory inside writer-fifo
+	// Conflict between reader and writer for whether the reader has time to open it or not
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	int count = 0;
