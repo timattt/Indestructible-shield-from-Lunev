@@ -13,40 +13,37 @@
 #define GET_SEM_VAL(SEM) semctl(semid, SEM, GETVAL)
 
 void common(int * semid, int * shmid, char ** shmem) {
+	//---------------
 	// GEN KEY
-	//==============================
 	int key = ftok("/home/timattt/.profile", 1);
 	if (key < 0) {
 		ERROR("while ftok");
 	}
-	//==============================
 
+	//---------------
 	// semget
-	//==============================
 	*semid = 0;
 	if ((*semid = semget(key, MAX_SEMS, IPC_CREAT | 0666)) < 0) {
 		ERROR("while semget");
 	}
-	//==============================
 
+	//---------------
 	// shmget
-	//==============================
 	*shmid = 0;
 	if ((*shmid = shmget(key, BUF_SIZE, IPC_CREAT | 0666)) < 0) {
 		ERROR("while shmget");
 	}
-	//==============================
 
+	//---------------
 	// shmat
-	//==============================
 	*shmem = (char*) shmat(*shmid, NULL, 0);
 	if (*shmem == (char*)(-1)) {
 		ERROR("while shmat");
 	}
-	//==============================
 }
 
 void shmem_fileReader(char * fileName, int semid, char * shmem) {
+	//---------------
 	// open file
 	int fd = open(fileName, O_RDONLY);
 
