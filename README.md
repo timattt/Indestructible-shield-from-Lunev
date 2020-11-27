@@ -88,6 +88,11 @@ Permission denied
 3) Можно ли сделать так чтобы дети не оставались в таблице?       
 Да, заменить дефолтный обработчик SIGCHLD у родителя на SIGIGN    
 4) Какие сигналы могут быть разосланы при выходе процесса?   
+SIGCHLD   
+prctl() - любые   
+SIGHUP    
+SIGPIPE   
+SIGIO   
 
 # Контрольные
 [Полусеместровая](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/HalfSemesterKR/readme.md)      
