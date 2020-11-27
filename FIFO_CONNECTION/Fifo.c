@@ -121,7 +121,7 @@ void fifo_fileReader(char * INPUT_FILE_NAME) {
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	//---------------
 	// Critical section 2
-	// Conflict between reader and writer for whether the reader has time to open it or not
+	// Conflict between reader and writer for whether the reader has time to open it or not. So conflict is for memoryu inside fifo.
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	char WRITER_FIFO_NAME[NAME_LENGTH] = { 0 };
