@@ -93,6 +93,7 @@ prctl() - любые (можно тустановить)
 SIGHUP    смерть лидера сессии
 SIGPIPE   - если мы читали из пайпа и умерли тогда процессу который в пайп писал будет этот сигнал
 SIGIO   - в случае select.
+SIGCONT
 
 # Контрольные
 [Полусеместровая](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/HalfSemesterKR/readme.md)      
