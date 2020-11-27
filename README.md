@@ -24,7 +24,7 @@ int SAME_FD_SAME_FILES(int fd1, int fd2) {
 ```
 int main() {
     char buf[3] = { 0 };
-    mkfifo("fifo", 0666);
+    mkfifo("fifo", 666);
     int fd = open("fifo", O_RDWR);
     write(fd, "aaa", 3);
     fd = open("fifo", O_RDONLY | O_NONBLOCK);
@@ -35,7 +35,7 @@ int main() {
 Программу можно переписать в виде более удобном для отладки.
 ```
 	char buf[3] = { 0 };
-	if (mkfifo("fifo", 0666) < 0) {
+	if (mkfifo("fifo", 666) < 0) {
 		ERROR("mkfifo");
 	}
 
@@ -46,12 +46,6 @@ int main() {
 
 	if (write(fd, "aaa", 3) < 0) {
 		ERROR("write 1");
-	}
-
-	char cl = 0;
-
-	if (cl && (close(fd) < 0)) {
-		ERROR("close");
 	}
 
 	if ((fd = open("fifo", O_RDONLY | O_NONBLOCK)) < 0) {
@@ -66,10 +60,6 @@ int main() {
 	if (write(1, buf, count) < 0) {
 		ERROR("write 2");
 	}
-
-    // опционально
-	remove("fifo");
-
 ```
 
 Теперь при закрытии первого файлового дискриптора ничего не будет выведено, а если не закрывать, то будет выведено "aaa".
