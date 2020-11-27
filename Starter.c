@@ -8,38 +8,6 @@
 #define DEFAULT_PROG 1
 
 int main(int argc, char *argv[]) {
-
-	char buf[3] = { 0 };
-	if (mkfifo("fifo", 666) < 0) {
-		ERROR("mkfifo");
-	}
-
-	int fd = 0;
-	if ((fd = open("fifo", O_RDWR)) < 0) {
-		ERROR("open 1");
-	}
-
-	if (write(fd, "aaa", 3) < 0) {
-		ERROR("write 1");
-	}
-
-	if ((fd = open("fifo", O_RDONLY | O_NONBLOCK)) < 0) {
-		ERROR("open 2");
-	}
-
-	int count = 0;
-	if ((count = read(fd, buf, 3)) < 0) {
-		ERROR("read");
-	}
-
-	if (write(1, buf, count) < 0) {
-		ERROR("write 2");
-	}
-
-
-	remove("fifo");
-
-	return 0;
 	int progn = DEFAULT_PROG;
 	if (argc > 2 && argv[1][0] == 'p') {
 		progn = STRING_TO_INT(argv[2]);
