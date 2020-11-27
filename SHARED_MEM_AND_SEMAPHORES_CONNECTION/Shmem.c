@@ -171,7 +171,8 @@ void shmem_consoleWriter(int semid, char * shmem) {
 	int sz = 0;
 	do {
 		//---------------
-		// VI
+		// Critical section VI
+		// Conflict between reader and writer for shmem
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 		FILL_SEMBUF(3, -1, 0);
