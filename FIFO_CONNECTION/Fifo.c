@@ -38,7 +38,7 @@ void fifo_fileReader(char * INPUT_FILE_NAME) {
 
 	//---------------
 	// Critical section 1
-	// Readers conflict with each other for second fifo
+	// Readers conflict with each other for resource (pid) in transfer fifo
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	int WRITER_KEY = 0;
@@ -133,7 +133,7 @@ void fifo_consoleWriter() {
 
 	//---------------
 	// Critical section 2
-	// Conflict between reader and writer for second fifo
+	// Conflict between reader and writer for writer fifo.
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	if (write(TRANSFER_FIFO_FD, &WRITER_KEY, sizeof(int)) == -1) {
