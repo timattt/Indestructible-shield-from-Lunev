@@ -69,7 +69,7 @@ void shmem_fileReader(char * fileName, int semid, char * shmem) {
 
 	//---------------
 	// Critical section II
-	// Conflict between readers for value of sem 3.
+	// Conflict between reader and writer in one pair for value of sem 3.
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	SET_SEM_VAL(3, 1);
@@ -147,7 +147,7 @@ void shmem_consoleWriter(int semid, char * shmem) {
 
 	//---------------
 	// V
-	// Conflict between writers for value of sem 2
+	// Conflict between reader and writer in one pair for value of sem 2
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	SET_SEM_VAL(2, 2);
@@ -171,7 +171,8 @@ void shmem_consoleWriter(int semid, char * shmem) {
 	int sz = 0;
 	do {
 		//---------------
-		// VI
+		// Critical section VI
+		// Conflict between reader and writer for shmem
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 		FILL_SEMBUF(3, -1, 0);

@@ -38,20 +38,13 @@ void fifo_fileReader(char * INPUT_FILE_NAME) {
 
 	//---------------
 	// Critical section 1
-	// Readers conflict with each other for pid-key (memory).
+	// Readers conflict with each other for resource (pid) in transfer fifo
 	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	int WRITER_KEY = 0;
 	if (read(TRANSFER_FIFO_FD, &WRITER_KEY, sizeof(int)) == -1) {
 		ERROR("while reading key from transfer fifo");
 	}
-
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	//---------------
-	// Critical section 2
-	// Conflict between reader and writer for whether the reader has time to open it or not
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 	char WRITER_FIFO_NAME[NAME_LENGTH] = { 0 };
 	MAKE_NAME(WRITER_KEY, WRITER_FIFO_NAME);
 
@@ -139,15 +132,15 @@ void fifo_consoleWriter() {
 	}
 
 	//---------------
+	// Critical section 2
+	// Conflict between reader and writer for writer fifo.
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	if (write(TRANSFER_FIFO_FD, &WRITER_KEY, sizeof(int)) == -1) {
 		ERROR("while writing transfer fifo");
 	}
 
 	//---------------
-	// Critical section 3
-	// Conflict between reader and writer for whether the reader has time to open it or not
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	int count = 0;
 	char buf[BUFFER_SIZE];
@@ -215,5 +208,77 @@ int Task1(int argc, char * argv[]) {
 
 	return 0;
 }
+/*
+1) Есть ли в коде критические секции?   
+Есть. Смотреть в коде.   
+2) Даны тебе 2 файловых дискриптора, тебе нужно написать программу, которая говорит, это дискрипторы одного и того же файла или нет.   
+```
+int SAME_FD_SAME_FILES(int fd1, int fd2) {
+	struct stat stat1, stat2;
+	if (fstat(fd1, &stat1) < 0)
+		return -1;
+	if (fstat(fd2, &stat2) < 0)
+		return -1;
+	return (stat1.st_dev == stat2.st_dev) && (stat1.st_ino == stat2.st_ino);
+}
+```   
+3) Пусть теперь предыдущая прога на вход принимает два пути к двум файлам, потом делает open на каждый из них. А дальше все то же самое. Вопрос: если я дам два одинаковых пути, что выдаст твоя прога? Всегда ли?   
+Нет, не всегда, например возможен вариант, что мы сделаем mount таким образом что появится директория с таким же именем (таким же путем до файла), но файлы будут разные. Или возможно такое, что между open файлы переименуются.   
+4) дана флешка на гиг, на ней файл на гиг, я делаю успешный unlink, сколько свободного места на флешке?    
+Если это имя является посленим, то файл удалится после завершения всех процессов в том числе и текущего где он открыт, и будет 1 гиг свободного места.    
+5) Что выведет прога:
 
+```
+int main() {
+    char buf[3] = { 0 };
+    mkfifo("fifo", 666);
+    int fd = open("fifo", O_RDWR);
+    write(fd, "aaa", 3);
+    fd = open("fifo", O_RDONLY | O_NONBLOCK);
+    write(1, buf, read(fd, buf, 3));
+}
+```
 
+Программу можно переписать в виде более удобном для отладки.
+
+```
+	char buf[3] = { 0 };
+	if (mkfifo("fifo", 666) < 0) {
+		ERROR("mkfifo");
+	}
+
+	int fd = 0;
+	if ((fd = open("fifo", O_RDWR)) < 0) {
+		ERROR("open 1");
+	}
+
+	if (write(fd, "aaa", 3) < 0) {
+		ERROR("write 1");
+	}
+
+	if ((fd = open("fifo", O_RDONLY | O_NONBLOCK)) < 0) {
+		ERROR("open 2");
+	}
+
+	int count = 0;
+	if ((count = read(fd, buf, 3)) < 0) {
+		ERROR("read");
+	}
+
+	if (write(1, buf, count) < 0) {
+		ERROR("write 2");
+	}
+```
+
+После запуска вылетает ошибка
+
+```
+Error with code 13, open 1
+Printing message:
+Permission denied
+```
+
+Это происходит потому что для определения прав доступа используется константа 666, а не 0666. Ноль в начале обеспечивает, что константа является восьмеричной. Поэтому мы просто имеем неправильную константу. И параметры доступа соответственно тоже неправильные. 
+
+Следовательно изначальная программа не выведет ничего из-за ошибки.
+*/
