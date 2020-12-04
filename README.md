@@ -96,11 +96,12 @@ Permission denied
 Да, заменить дефолтный обработчик SIGCHLD у родителя на SIGIGN    
 4) Какие сигналы могут быть разосланы при выходе процесса?   
 * SIGCHLD   
-* prctl() - любые (можно тустановить)   
+* prctl() - в ребенке любые сигналы (можно тустановить)   
 * SIGHUP    смерть лидера сессии   
 * SIGPIPE   - если мы читали из пайпа и умерли тогда процессу который в пайп писал будет этот сигнал   
 * SIGIO   - в случае select.   
 * SIGCONT   
+5) Как работает segfault?
 
 # Контрольные
 [Полусеместровая](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/HalfSemesterKR/readme.md)      
