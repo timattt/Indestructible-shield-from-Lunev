@@ -1,11 +1,15 @@
+#include <fcntl.h>
 #include <stdio.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "FIFO_CONNECTION/Fifo.h"
 #include "MESSAGES/Main.h"
+#include "PROXY/Proxy.h"
 #include "SHARED_MEM_AND_SEMAPHORES_CONNECTION/Shmem.h"
 #include "UTILS/Utils.h"
 
-#define DEFAULT_PROG 1
+#define DEFAULT_PROG 5
 
 int main(int argc, char *argv[]) {
 
@@ -58,6 +62,9 @@ int main(int argc, char *argv[]) {
 		break;
 	case 3:
 		Task3(argc, argv);
+		break;
+	case 5:
+		Task5(argc, argv);
 		break;
 	default:
 		ERROR("while starting progs, strange prog number");
