@@ -31,6 +31,9 @@ int main(int argc, char *argv[]) {
 	case 3:
 		Task3(argc, argv);
 		break;
+	case 4:
+		Task4(argc, argv);
+		break;
 	case 5:
 		Task5(argc, argv);
 		break;
