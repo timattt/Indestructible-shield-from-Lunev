@@ -36,11 +36,6 @@ void fifo_fileReader(char * INPUT_FILE_NAME) {
 		ERROR("while opening transfer fifo");
 	}
 
-	//---------------
-	// Critical section 1
-	// Readers conflict with each other for resource (pid) in transfer fifo
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 	int WRITER_KEY = 0;
 	if (read(TRANSFER_FIFO_FD, &WRITER_KEY, sizeof(int)) == -1) {
 		ERROR("while reading key from transfer fifo");
@@ -54,9 +49,6 @@ void fifo_fileReader(char * INPUT_FILE_NAME) {
 	if ((WRITER_FIFO_FD = open(WRITER_FIFO_NAME, O_WRONLY | O_NONBLOCK)) == -1) {
 		ERROR("while opening writer fifo");
 	}
-
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	//---------------
 
 	if (fcntl(WRITER_FIFO_FD, F_SETFL, O_WRONLY) == -1) {
 		ERROR("while removing O_NONBLOCK flag from writer fifo");
@@ -131,11 +123,6 @@ void fifo_consoleWriter() {
 		ERROR("while opening writer fifo");
 	}
 
-	//---------------
-	// Critical section 2
-	// Conflict between reader and writer for writer fifo.
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 	if (write(TRANSFER_FIFO_FD, &WRITER_KEY, sizeof(int)) == -1) {
 		ERROR("while writing transfer fifo");
 	}
@@ -160,9 +147,6 @@ void fifo_consoleWriter() {
 	if (count == 0) {
 		ERROR("waiting time is out");
 	}
-
-	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	//---------------
 
 	if (fcntl(WRITER_FIFO_FD, F_SETFL, O_RDONLY) == -1) {
 		ERROR("while removing O_NONBLOCK parameter from writer fifo");
