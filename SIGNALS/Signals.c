@@ -16,6 +16,7 @@ char get_bit(char a, char no_of_bit) {
 	return (a & (1 << no_of_bit)) >> no_of_bit;
 }
 
+//CRITICAL SECTION 2 PARENT PART START-----------------------------------------------
 //! Parent's SIGUSR1 handler
 void sigusr1_p_handler(int signum) {
 	current = 0;
@@ -25,11 +26,14 @@ void sigusr1_p_handler(int signum) {
 void sigusr2_p_handler(int signum) {
 	current = 1;
 }
+//CRITICAL SECTION 2 PARENT PART END-----------------------------------------------
 
+//CRITICAL SECTION 3 CHILD PART START------------------------------------------------
 //! Parent's SIGCHLD handler
 void sigchld_p_handler(int signum) {
 	exit(-1);
 }
+//CRITICAL SECTION 3 CHILD PART END------------------------------------------------
 
 //! Child's SIGUSR1 handler
 void sigusr1_c_handler(int signum) {
@@ -60,10 +64,12 @@ void sig_parent(int cpid) {
 
 	while (1) {
 		symbol = 0;
-
 		for (int i = 0; i < sizeof(char) * 8; ++i) {
 			// Wait for SIGUSR1/SIGUSR2/SIGCHLD
+//CRITICAL SECTION 4 START
 			sigsuspend(&oldset);
+//CRITICAL SECTION 4 END
+//CRITICAL SECTION 3 PARENT PART END----------------------------------------------------------------
 			symbol = (symbol << 1) | current;
 
 			if (i == sizeof(char) * 8 - 1) {
@@ -79,7 +85,7 @@ void sig_parent(int cpid) {
 		if (write(STDOUT_FILENO, &symbol, sizeof(char)) == -1) {
 			ERROR("while wrting to console");
 		}
-
+//CRITICAL SECTION 3 PARENT PART START----------------------------------------------------------
 		if (kill(cpid, SIGUSR1) == -1) {
 			if (errno != ESRCH) {
 				ERROR("killed");
@@ -87,6 +93,7 @@ void sig_parent(int cpid) {
 
 			exit(-1);
 		}
+
 
 	}
 
@@ -103,6 +110,8 @@ void sig_child(char *fileName, int ppid) {
 		ERROR("parent is dead");
 	}
 
+//CRITICAL SECTION 1 END -------------------------------------------------
+
 	// Set up child's signal handler's
 	setSignalAction(SIGUSR1, sigusr1_c_handler);
 	setSignalAction(SIGUSR2, sigusr2_c_handler);
@@ -118,6 +127,7 @@ void sig_child(char *fileName, int ppid) {
 		// Transfer this symbol by bits
 		for (int i = sizeof(char) * 8 - 1; i >= 0; --i) {
 			if (!get_bit(symbol, i)) {
+//CRITICAL SECTION 2 CHILD PART START --------------------------------------------------
 				// bit is zero
 				// Send SIGUSR1
 				if (kill(ppid, SIGUSR1) == -1) {
@@ -133,6 +143,7 @@ void sig_child(char *fileName, int ppid) {
 
 			// Wait for SIGUSR1 from parent
 			sigsuspend(&oldset);
+//CRITICAL SECTION 2 CHILD PART END --------------------------------------------------
 		}
 	}
 
@@ -163,6 +174,8 @@ int Task4(int argc, char *argv[]) {
 	sigaddset(&sigset, SIGHUP);
 	sigprocmask(SIG_BLOCK, &sigset, &oldset);
 
+//CRITICAL SECTION 1 START -------------------------------------------------
+	
 	int ppid = getpid();
 	int cpid = 0;
 	if ((cpid = fork()) == -1) {
