@@ -1,12 +1,11 @@
 #include <fcntl.h>
 #include <stdio.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
 #include "FIFO_CONNECTION/Fifo.h"
 #include "MESSAGES/Main.h"
 #include "PROXY/Proxy.h"
 #include "SHARED_MEM_AND_SEMAPHORES_CONNECTION/Shmem.h"
+#include "SIGNALS/Signals.h"
 #include "UTILS/Utils.h"
 
 #define DEFAULT_PROG 5
