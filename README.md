@@ -1,5 +1,11 @@
 # Indestructible shield from Lunev
-This repository contains programs that will serve as a shield against my expulsion from the flagship of Russian science   
+Этот репозиторий содержит детально разобранные решения задач и контрольных Лунева.
+Еще тут есть полный конспект всех семинаров.
+За это отдельное спасибо [Ване](https://vk.com/zoomzero).
+
+# Навигация
+
+
 
 # Вопросы к задачам
 ## I
@@ -136,11 +142,9 @@ parent: 88-72
 7) На какие сигналы нельзя поставить обработчик:
 sigstop, sigkill, sigcont    
 
-# Контрольные
-[Полусеместровая](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/HalfSemesterKR/readme.md)      
+# Сжатые алгоритмы решений   
+## Первое задание (fifo)
 
-# Первое задание (fifo)
-## Сжатый алгоритм системных вызовов:
 ### Reader from file:
 * open file (O_RDONLY | O_NONBLOCK)   
 * mkfifo transfer 00600   
@@ -171,72 +175,3 @@ sigstop, sigkill, sigcont
 * Родитель сначала отправляет сообщение типа (n) с любым содержимым, потом ждет сообщение типа (n + 1).
 * Каждый сын сначала ждет сообщение типа своего номера, а потом отправляет сообщение   типа (n + 1).
 * Закрываем очередь.
-
-# Третье задание (shared mem)
-## Сжатый алгоритм системных вызовов:
-### Семафоры:
-* CW_CUR
-* CW_PRE
-* FR_CUR
-* FR_PRE
-* MUTEX
-* FULL
-* CTL
-* SEM_NUM
-
-### Reader from file:
-* open file (O_RDONLY)
-* shmget (IPC_CREAT | 0666)
-* shmat
-* semget (IPC_CREAT | 0666)
-* semop 1:
-* * [FR_CUR, 0, IPC_NOWAIT]
-* * [FR_PRE, 0, IPC_NOWAIT]
-* * [FR_CUR, +1, SEM_UNDO]
-* semop 2:
-* * [CW_CUR, -1, 0)]
-* * [CW_CUR, +1, 0]
-* * [CW_PRE, +1, SEM_UNDO]
-* semop 3:
-* * [FULL   , +1, SEM_UNDO]
-* * [FULL   , -1, 0]
-* loop:
-* * semop 4:
-* * * [CW_CUR, -1, IPC_NOWAIT]
-* * * [CW_CUR, +1, 0]
-* * * [FULL, 0, 0]
-* * * [MUTEX, 0, 0]
-* * * [MUTEX, +1, SEM_UNDO]
-* * copy from file to shared mem
-* * semop 5:
-* * * [MUTEX , -1, SEM_UNDO]
-* * * [FULL  , +1, 0]
-* close file
-* shmdt
-
-### Writer to console:
-* shmget (IPC_CREAT | 0666)
-* shmat
-* semget (IPC_CREAT | 0666)
-* semop 1:
-* * [CW_CUR,  0, IPC_NOWAIT]
-* * [CW_PRE,  0, IPC_NOWAIT]
-* * [CW_CUR, +1, SEM_UNDO]
-* semop 2:
-* * [FR_CUR, -1, 0]
-* * [FR_CUR, +1, 0]
-* * [FR_PRE, +1, SEM_UNDO]
-* loop:
-* * semop 3:
-* * * [FR_CUR, -1, IPC_NOWAIT]
-* * * [FR_CUR, +1, 0]
-* * * [MUTEX, 0, 0]
-* * * [MUTEX, +1, SEM_UNDO]
-* * * [FULL, -1, 0]
-* * copy to stdout from shared mem
-* * semop 4:
-* * * [MUTEX, -1, SEM_UNDO]
-* shmdt
-* shmctl (IPC_RMID)
-* semctl (IPC_RMID)
-
