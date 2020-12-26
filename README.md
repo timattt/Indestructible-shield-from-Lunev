@@ -4,6 +4,13 @@
 За это отдельное спасибо [Ване](https://vk.com/zoomzero).
 
 # Навигация
+[Конспект семинаров](https://github.com/timattt/Indestructible-shield-from-Lunev/blob/master/SEMINARS.pdf)   
+[Разбор и решения контрольных](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/%D0%A0%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D1%85)   
+[1 задача (fifo)](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/FIFO_CONNECTION)   
+[2 задача (messages)](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/MESSAGES)   
+[3 задача (shared memory)](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/SHARED_MEM_AND_SEMAPHORES_CONNECTION)   
+[4 задача (signals)](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/SIGNALS)   
+[5 задача (proxy)](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/PROXY)   
 
 
 
