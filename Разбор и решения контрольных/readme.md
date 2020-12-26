@@ -4,7 +4,13 @@
 необходимый для решения одного из вариантов контрольной.
 
 # Ссылки на другие решения
-[Решение 1 (нажми меня!)]
+[Решение контрольной 1 (нажми меня!)](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/%D0%A0%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D1%85/Solution1)   
+
+[Решение контрольной 2 (нажми меня!)](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/%D0%A0%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D1%85/Solution2)
+
+[Решение контрольной 3 (нажми меня!)](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/%D0%A0%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D1%85/Solution3%20(my%20halfsemester%20task))   
+
+[Решение контрольной 4 (нажми меня!)](https://github.com/timattt/Indestructible-shield-from-Lunev/tree/master/%D0%A0%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%B8%20%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D1%85/Solution4%20(my%20semester%20task))   
 
 # Разбор 10 варианта   
 ![](https://www.linkpicture.com/q/0_39.jpg)
